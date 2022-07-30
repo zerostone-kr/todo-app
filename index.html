@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Todo</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Todo App</h1>
+        <input type="text" v-model="inputText" v-on:keyup.enter="addItem">
+        <button v-on:click="fetchItems">add</button>
+        <div>
+            <!-- {{ todoItems }} -->
+            <ul>
+                <li v-for="(todoItem, index) in todoItems">
+                    {{ todoItem }}
+                    <button v-on:click="removeItem(todoItem, index)">remove</button>
+                </li>
+                <!-- <li>{{ todoItems[0] }}</li> -->
+            </ul>
+        </div>        
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            created: function(){
+                this.fetchItems();
+            }, 
+            data: {
+                inputText: '',
+                todoItems: []
+            },
+            methods: {
+                addItem: function(event){
+                    // console.log(event);
+                    var value = this.inputText;
+                    localStorage.setItem(value, value);
+                    this.todoItems.push(value);
+                    this.inputText = '';
+
+
+                    // console.log('add');
+                    // axios.post('주소', this.inputText)
+                },
+                fetchItems: function(){
+                    for(var i = 0; i < localStorage.length; i++){
+                        var value = localStorage.key(i);
+                        console.log(value);
+                        this.todoItems.push(value);
+                    }
+                },
+                removeItem: function(todoItem, index){
+                    console.log(todoItem, index);
+                    this.todoItems.splice(index, 1);
+                    localStorage.
+                    
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
